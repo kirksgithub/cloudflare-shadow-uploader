@@ -1,0 +1,4 @@
+name = "cloudflare-shadow-uploader"
+main = "src/index.ts"
+compatibility_date = "2022-07-05"
+node_compat = true
