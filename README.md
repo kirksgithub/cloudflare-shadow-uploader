@@ -2,9 +2,9 @@
 
 1. Setup a storage account and load it up with Shadow.
 
-2. Use `wrangler secret put` to setup (`PRIVATE_KEY`)[https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/index.ts#L75]
+2. Use `wrangler secret put` to setup `PRIVATE_KEY` https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/index.ts#L75
 
-3. Edit (`Config.SHADOW_ACCOUNT`)[https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/Config.ts#L3] , can also be setup via `wrangler secret` if you prefer.
+3. Edit `Config.SHADOW_ACCOUNT` https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/Config.ts#L3 , can also be setup via `wrangler secret` if you prefer.
 
 4. Run `wrangler publish`.
 
