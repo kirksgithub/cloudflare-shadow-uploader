@@ -6,7 +6,7 @@ const crypto = require('crypto-browserify');
 
 export async function getAccountStorageInfo(): Promise<ReadableStream | null> {
     try {
-        const resp = await fetch(`${Config.SHADOW_DRIVE_ENDPOINT}/storage-account-info`, {
+        const resp = await fetch(`${Config.UPLOAD}/storage-account-info`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export async function getAccountStorageInfo(): Promise<ReadableStream | null> {
 
 export async function getListObjects() : Promise<ReadableStream | null> {
     try {
-        const resp = await fetch(`${Config.SHADOW_DRIVE_ENDPOINT}/list-objects`, {
+        const resp = await fetch(`${Config.UPLOAD}/list-objects`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export async function uploadToShadowDrive(filename: string, data: Buffer, shadow
         fd.append("signer", shadowWallet.publicKey.toString());
         fd.append("storage_account", shadowAccount.toBase58());
         fd.append("fileNames", filename);
-        const resp = await fetch(`${Config.SHADOW_DRIVE_ENDPOINT}/upload`, {
+        const resp = await fetch(`${Config.UPLOAD}/upload`, {
             method: "POST",
             body: fd,
         });
@@ -91,6 +91,7 @@ export async function uploadToShadowDrive(filename: string, data: Buffer, shadow
 
 export async function getArweave(url: string): Promise<ArrayBuffer|null> {
     try {
+        console.log(`getArweave: ${url}`);
         const resp = await fetch(url);
         return resp.arrayBuffer();
     } catch (e: any) {
@@ -100,7 +101,7 @@ export async function getArweave(url: string): Promise<ArrayBuffer|null> {
 
 export async function getFileData(filename: string, shadowAccount: PublicKey): Promise<ReadableStream | null> {
     try {
-        const resp = await fetch(`${Config.SHADOW_DRIVE_ENDPOINT}/get-object-data`, {
+        const resp = await fetch(`${Config.UPLOAD}/get-object-data`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -121,7 +122,10 @@ export async function getFileData(filename: string, shadowAccount: PublicKey): P
 
 export async function getFileDataFromShadowDrive(filename: string, shadowAccount: PublicKey): Promise<Response | null> {
     try {
-        const resp = await fetch(`https://shdw-drive.genesysgo.net/${shadowAccount.toBase58()}/${filename}`);
+        const url = `${Config.DOWNLOAD}/${shadowAccount.toBase58()}/${filename}`
+        console.log(`url = ${url}`);
+        const resp = await fetch(url);
+        console.log(`resp = ${resp.status}`);
         if (resp.status === 200) {
             return resp;
         } else {

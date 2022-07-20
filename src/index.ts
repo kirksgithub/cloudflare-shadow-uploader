@@ -31,7 +31,7 @@ export interface Env {
 declare type UploadRequest = {
   arweave: string;
 }
-const ARWEAVE = "https://arweave.net/";
+const ARWEAVE = "https://arweave.net";
 
 export default {
   async fetch(
@@ -69,9 +69,10 @@ export default {
       if (arweaveResponse === null) {
         return new Response(`Couldn't fetch ${filename} from arweave`, { status: 500 });
       }
-      console.log(`Fetched ${filename} from arweave`);
+      const arweaveBuffer = Buffer.from(arweaveResponse);
+      console.log(`Fetched ${filename} from arweave ${JSON.stringify(arweaveBuffer)}`);
       // Upload file to Shadow Drive
-      const uploadResponse = await uploadToShadowDrive(filename, Buffer.from(arweaveResponse), shadowAccount, shadowWallet);
+      const uploadResponse = await uploadToShadowDrive(filename, arweaveBuffer, shadowAccount, shadowWallet);
       if (uploadResponse === null) {
         return new Response(`Couldn't upload ${filename} to Shadow Drive`, { status: 500 });
       }
