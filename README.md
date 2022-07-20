@@ -13,7 +13,7 @@
 
 1. `GET /` will return the `SHADOW_ACCOUNT` details, `storage-account-info` and `list-objects` https://github.com/openchaindev/cloudflare-shadow-uploader/blob/86b5d4185f242ad398bd207d88f8ce58744cf5bf/src/index.ts#L43-L47.
 
-2. `POST /` , body: `{ arweave: "link_to_arweave_file_with_no_ext_params"}`.
+2. `GET/${ARWEAVE_NAME}` .
 
 2.1. Will first try to fetch it from Shadow Drive https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/index.ts#L67-L73 .
 

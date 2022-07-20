@@ -1,5 +1,6 @@
 # Logs
 
+src/wallet.json
 .env
 .idea
 logs

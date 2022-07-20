@@ -31,6 +31,7 @@ export interface Env {
 declare type UploadRequest = {
   arweave: string;
 }
+const ARWEAVE = "https://arweave.net/";
 
 export default {
   async fetch(
@@ -39,28 +40,17 @@ export default {
       ctx: ExecutionContext
   ): Promise<Response> {
     try {
-      if (request.method !== "POST") {
+      const url = new URL(request.url);
+      const {pathname} = url;
+      if (url.pathname === "/") {
         const responses = {
           "info": await getAccountStorageInfo(),
           "list": await getListObjects()
         }
         return new Response(JSON.stringify(responses, null, 2), {status: 200});
       }
-
-      let body: UploadRequest;
-      try {
-        body = await request.json();
-      } catch (e: any) {
-        return new Response("Invalid request", { status: 400 });
-      }
-
-      if (!body.arweave) {
-        return new Response("arweave is required");
-      }
-
-      const arweave = body.arweave;
-      const arr = arweave.split("/");
-      const filename = arr[arr.length - 1];
+      const filename = pathname.substring(1);
+      const arweave = `${ARWEAVE}/${filename}`;
       const shadowAccount = new PublicKey(Config.SHADOW_ACCOUNT);
 
       // First we check if this file is already on Shadow Drive
@@ -75,7 +65,7 @@ export default {
       const shadowWallet = Keypair.fromSecretKey(new Uint8Array(JSON.parse(env.PRIVATE_KEY)));
 
       // Get the file content from arweave
-      const arweaveResponse = await getArweave(body.arweave);
+      const arweaveResponse = await getArweave(arweave);
       if (arweaveResponse === null) {
         return new Response(`Couldn't fetch ${filename} from arweave`, { status: 500 });
       }
