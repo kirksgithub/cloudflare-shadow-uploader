@@ -11,17 +11,17 @@
 
 # Usage
 
-1. `GET /` will return the `SHADOW_ACCOUNT` details, `storage-account-info` and `list-objects` https://github.com/openchaindev/cloudflare-shadow-uploader/blob/86b5d4185f242ad398bd207d88f8ce58744cf5bf/src/index.ts#L43-L47.
+1. `GET /` will return the `SHADOW_ACCOUNT` details, `storage-account-info` and `list-objects` https://github.com/openchaindev/cloudflare-shadow-uploader/blob/86b5d4185f242ad398bd207d88f8ce58744cf5bf/src/index.ts#L43-L47
 
 2. `GET/${ARWEAVE_NAME}` .
 
-2.1. Will first try to fetch it from Shadow Drive https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/index.ts#L67-L73 .
+2.1. Will first try to fetch it from Shadow Drive https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/index.ts#L67-L73
 
-2.2. If `2.1` doesn't find the file, get its content from `arweave` https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/index.ts#L78 .
+2.2. If `2.1` doesn't find the file, get its content from `arweave` https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/index.ts#L78
 
 2.3. Upload it to Shadow Drive https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/index.ts#L84 .
 
-2.4. Fetch it from Shadow Drive and serve it https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/index.ts#L91 .
+2.4. Fetch it from Shadow Drive and serve it https://github.com/openchaindev/cloudflare-shadow-uploader/blob/5bf2559f1491e9986f3643bf9d5187f2c4eb75c6/src/index.ts#L91
 
 * Technically, can skip `2.4` and fetch `2.2` data to improve speed, but it's sort of a sanity check
 
